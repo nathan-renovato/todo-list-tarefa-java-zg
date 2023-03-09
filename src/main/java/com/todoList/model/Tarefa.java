@@ -1,6 +1,6 @@
 package com.todoList.model;
 
-public class Tarefa {
+public class Tarefa implements Comparable{
 
     private int id;
     private String nome;
@@ -74,5 +74,19 @@ public class Tarefa {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+    @Override
+    public int compareTo(Object o) {
+        return 0;
+    }
+
+    @Override
+    public String toString(){
+        return "Nome: " + this.nome + "\n" +
+                "Descrição: " + this.descricao + "\n" +
+                "Data de término: " + this.dataTermino + "\n" +
+                "Prioridade: " + this.prioridade + "\n" +
+                "Categoria: " + this.categoria + "\n" +
+                "Status: " + this.status ;
     }
 }
