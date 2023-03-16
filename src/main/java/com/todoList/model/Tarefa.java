@@ -87,6 +87,6 @@ public class Tarefa implements Comparable{
                 "Data de término: " + this.dataTermino + "\n" +
                 "Prioridade: " + this.prioridade + "\n" +
                 "Categoria: " + this.categoria + "\n" +
-                "Status: " + this.status ;
+                "Status: " + this.status + "\n \n";
     }
 }

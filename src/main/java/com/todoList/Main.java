@@ -25,7 +25,9 @@ public class Main {
                     listaDeTarefas.add(novaTarefa);
                 break;
                 case 2:
-                    System.out.println(listaDeTarefas);
+                    int filtroSelecionado = menuListarTarefas();
+                    ArrayList<Tarefa> listaFiltrada = retornarListaFiltroSelecionado(filtroSelecionado);
+                    System.out.println(listaFiltrada);
                     break;
                 case 3:
                     System.out.println("Escreva o nome da tarefa a ser atualizada:");
@@ -98,6 +100,69 @@ public class Main {
                 categoriaAtividade,
                 statusAtividade
         );
+    }
+
+    public static int menuListarTarefas(){
+        System.out.println("Deseja listar as tarefas por: " +
+                "\n [1] categoria" +
+                "\n [2] prioridade" +
+                "\n [3] status" +
+                "\n [4] listar todos");
+        return entrada.nextInt();
+    }
+
+    public static ArrayList<Tarefa> retornarListaFiltroSelecionado(int filtroSelecionado){
+        switch (filtroSelecionado){
+            case 1:
+                System.out.println("Insira a categoria a ser listada: ");
+                entrada.nextLine();
+                String categoriaSelecionada = entrada.nextLine();
+                return listarTarefaCategoria(categoriaSelecionada);
+            case 2:
+                System.out.println("Insira a prioridade a ser listada: ");
+                int prioridadeSelecionada = entrada.nextInt();
+                entrada.nextLine();
+                return listarTarefaPrioridade(prioridadeSelecionada);
+            case 3:
+                System.out.println("Insira o status a ser listado: ");
+                String statusSelecionado = entrada.nextLine();
+                return listarTarefaStatus(statusSelecionado);
+            case 4:
+                return listaDeTarefas;
+        }
+        return new ArrayList<Tarefa>();
+    }
+     public static ArrayList<Tarefa> listarTarefaCategoria(String categoria){
+        ArrayList<Tarefa> listagemTarefaCategoria = new ArrayList<>();
+
+        for(int i = 0; i < listaDeTarefas.size(); i++){
+            if(listaDeTarefas.get(i).getCategoria().equals(categoria)){
+                listagemTarefaCategoria.add(listaDeTarefas.get(i));
+            }
+        }
+         return  listagemTarefaCategoria;
+    }
+
+    public static ArrayList<Tarefa> listarTarefaPrioridade(int prioridade){
+        ArrayList<Tarefa> listagemTarefaPrioridade = new ArrayList<>();
+
+        for(int i = 0; i < listaDeTarefas.size(); i++){
+            if(listaDeTarefas.get(i).getPrioridade() == prioridade){
+                listagemTarefaPrioridade.add(listaDeTarefas.get(i));
+            }
+        }
+        return  listagemTarefaPrioridade;
+    }
+
+    public static ArrayList<Tarefa> listarTarefaStatus(String status){
+        ArrayList<Tarefa> listagemTarefaStatus = new ArrayList<>();
+
+        for(int i = 0; i < listaDeTarefas.size(); i++){
+            if(listaDeTarefas.get(i).getStatus().equals(status)){
+                listagemTarefaStatus.add(listaDeTarefas.get(i));
+            }
+        }
+        return  listagemTarefaStatus;
     }
      public static int encontrarIndiceTarefa(String nomeAtividade){
             for(int i = 0; i < listaDeTarefas.size(); i++ ){
