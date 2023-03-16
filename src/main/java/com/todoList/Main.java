@@ -4,12 +4,12 @@ import com.todoList.model.Tarefa;
 
 import java.util.*;
 
+import static java.lang.System.exit;
+
 public class Main {
     public static Scanner entrada = new Scanner(System.in);
+    public static ArrayList<Tarefa> listaDeTarefas= new ArrayList<>();
     public static void main(String[] args) {
-
-
-        ArrayList<Tarefa> listaDeTarefas= new ArrayList<>();
 
         int opcao=-1;
         while (opcao != 5){
@@ -28,7 +28,15 @@ public class Main {
                     System.out.println(listaDeTarefas);
                     break;
                 case 3:
-                    System.out.println("Ainda não implementado.");
+                    System.out.println("Escreva o nome da tarefa a ser atualizada:");
+                    String nomeTarefaParaAtualizar = entrada.nextLine();
+
+                    int indiceTarefaParaAtualizar = encontrarIndiceTarefa(nomeTarefaParaAtualizar);
+                    if(indiceTarefaParaAtualizar == -1){
+                        System.out.println("Tarefa não encontrada");
+                    } else{
+                        atualizarTarefa(indiceTarefaParaAtualizar);
+                    }
                     break;
                 case 4:
                    Boolean deletouTarefa = deletarTarefa(listaDeTarefas);
@@ -37,6 +45,9 @@ public class Main {
                    } else{
                        System.out.println("Não foi possível deletar a tarefa. Talvez o nome não foi informado corretamente.");
                    }
+                    break;
+                case 5:
+                    exit(0);
                     break;
                 default :
                     System.out.println("Opção inexistente!");
@@ -88,6 +99,62 @@ public class Main {
                 statusAtividade
         );
     }
+     public static int encontrarIndiceTarefa(String nomeAtividade){
+            for(int i = 0; i < listaDeTarefas.size(); i++ ){
+                if(listaDeTarefas.get(i).getNome().equals(nomeAtividade))
+                    return i;
+            }
+         return -1;
+     }
+    public static void atualizarTarefa(int indiceTarefaAtualizar){
+        int opcaoSelecionada =menuAtualizarTarefa();
+        entrada.nextLine();
+
+      switch (opcaoSelecionada){
+            case 1:
+                System.out.println("Insira o novo nome da tarefa:");
+                String nomeAtualizado = entrada.nextLine();
+                listaDeTarefas.get(indiceTarefaAtualizar).setNome(nomeAtualizado);
+                break;
+            case 2:
+                System.out.println("Insira a nova descrição da tarefa:");
+                String descricaoAtualizada = entrada.nextLine();
+                listaDeTarefas.get(indiceTarefaAtualizar).setDescricao(descricaoAtualizada);
+                break;
+            case 3:
+                System.out.println("Insira a nova data de término da tarefa:");
+                String dataTerminoAtualizada = entrada.nextLine();
+                listaDeTarefas.get(indiceTarefaAtualizar).setDataTermino(dataTerminoAtualizada);
+                break;
+            case 4:
+                System.out.println("Insira a nova prioridade da tarefa, sendo 1 a menor" +
+                                "\n  prioridade e o 5 a maior prioridade :");
+                int prioridadeAtualizada = entrada.nextInt();
+                listaDeTarefas.get(indiceTarefaAtualizar).setPrioridade(prioridadeAtualizada);
+                break;
+            case 5:
+                System.out.println("Insira a nova categoria da tarefa:");
+                String categoriaAtualizada = entrada.nextLine();
+                listaDeTarefas.get(indiceTarefaAtualizar).setCategoria(categoriaAtualizada);
+                break;
+            case 6:
+                System.out.println("Insira o novo status da tarefa, sendo ToDo,Doing ou Done:");
+                String statusAtualizado = entrada.nextLine();
+                listaDeTarefas.get(indiceTarefaAtualizar).setStatus(statusAtualizado);
+                break;
+        }
+    }
+        public static int menuAtualizarTarefa(){
+            System.out.println("Selecione a opção que deseja atualizar da tarefa: " +
+                    "\n [1] nome" +
+                    "\n [2] descrição" +
+                    "\n [3] data término" +
+                    "\n [4] prioridade" +
+                    "\n [5] categoria" +
+                    "\n [6] status"
+            );
+            return entrada.nextInt();
+        }
 
     public static  Boolean deletarTarefa(List<Tarefa> listaDeTarefas){
         System.out.println("Escreva o nome da atividade a ser removida: ");
